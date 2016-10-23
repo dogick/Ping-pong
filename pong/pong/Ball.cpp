@@ -25,7 +25,7 @@ void StartBall(Ball & ball)
 	ball.shape.move(ball.direction);
 }
 
-void CheckBallCollision(Ball & ball, std::vector<Wall*> & walls, sf::FloatRect & oldBoundsPlayer)
+void CheckBallCollision(Ball & ball, std::vector<Wall*> & walls, sf::FloatRect & oldBoundsPlayer, sf::FloatRect & oldBoundsEnemy, Score & score)
 {
 	sf::FloatRect oldBounds = ball.shape.getGlobalBounds();
 	for (auto wall : walls)
@@ -35,8 +35,14 @@ void CheckBallCollision(Ball & ball, std::vector<Wall*> & walls, sf::FloatRect &
 		{
 			ball.direction.y *= -1;
 		}
-		else if (isCollision && (wall->wallPosition == WallPosition::LEFT || wall->wallPosition == WallPosition::RIGHT))
+		else if (isCollision && (wall->wallPosition == WallPosition::LEFT))
 		{
+			score.text[1].setString(std::to_string(++score.scoreEnemy));
+			ball.direction.x *= -1;
+		}
+		else if (isCollision && (wall->wallPosition == WallPosition::RIGHT))
+		{
+			score.text[0].setString(std::to_string(++score.scorePlayer));
 			ball.direction.x *= -1;
 		}
 	}
@@ -45,11 +51,15 @@ void CheckBallCollision(Ball & ball, std::vector<Wall*> & walls, sf::FloatRect &
 	{
 		ball.direction.x *= -1;
 	}
+	else if (oldBounds.intersects(oldBoundsEnemy))
+	{
+		ball.direction.x *= -1;
+	}
 }
 
-void UpdateBall(Ball & ball, float elapsedTime, std::vector<Wall*> & walls, sf::FloatRect & oldBoundsPlayer)
+void UpdateBall(Ball & ball, float elapsedTime, std::vector<Wall*> & walls, sf::FloatRect & oldBoundsPlayer, sf::FloatRect & oldBoundsEnemy, Score & score)
 {
-	CheckBallCollision(ball, walls, oldBoundsPlayer);
+	CheckBallCollision(ball, walls, oldBoundsPlayer, oldBoundsEnemy, score);
 	sf::Vector2f movement(ball.direction.x * elapsedTime * BALL_SPEED, ball.direction.y * elapsedTime * BALL_SPEED);
 	ball.shape.move(movement);
 }

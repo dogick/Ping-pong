@@ -14,6 +14,10 @@ void Render(sf::RenderWindow & window, Game* game)
 	window.draw(game->scene.centerLines);
 	window.draw(game->ball.shape);
 	window.draw(game->player.playerShape);
+	for (auto score : game->score.text)
+	{
+		window.draw(score);
+	}
 	window.display();
 }
 

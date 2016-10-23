@@ -26,7 +26,7 @@ void UpdatePlayerDirection(Player &player)
 
 void UpdatePlayer(Player &player, float elapsedTime, std::vector<Wall*> & walls)
 {
-	const float step = PLAYER_SPEED * elapsedTime;
+	const float speed = PLAYER_SPEED * elapsedTime;
 
 	UpdatePlayerDirection(player);
 
@@ -34,10 +34,10 @@ void UpdatePlayer(Player &player, float elapsedTime, std::vector<Wall*> & walls)
 	switch (player.direction)
 	{
 	case Direction::UP:
-		movement.y -= step;
+		movement.y -= speed;
 		break;
 	case Direction::DOWN:
-		movement.y += step;
+		movement.y += speed;
 		break;
 	case Direction::NONE:
 		break;

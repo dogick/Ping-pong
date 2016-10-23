@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Const.h"
 #include "Scene.h"
+#include "Score.h"
 
 struct Ball
 {
@@ -11,4 +12,4 @@ struct Ball
 };
 
 void StartBall(Ball & ball);
-void UpdateBall(Ball & ball, float elapsedTime, std::vector<Wall*> & walls, sf::FloatRect & oldBoundsPlayer);
+void UpdateBall(Ball & ball, float elapsedTime, std::vector<Wall*> & walls, sf::FloatRect & oldBoundsPlayer, sf::FloatRect & oldBoundsEnemy, Score & score);

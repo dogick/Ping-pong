@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Ball.h"
 #include "Enemy.h"
+#include "Score.h"
 
 struct Game
 {
@@ -11,7 +12,9 @@ struct Game
 	Player player;
 	Ball ball;
 	Enemy enemy;
+	Score score;
 	void InitializeGame();
 };
 
 void UpdateGame(Game* game, float elapsedTime);
+void ResetGame(Ball & ball);
